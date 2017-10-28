@@ -73,8 +73,8 @@ app.on('ready', () => {
     y         :  bounds.y,
     width     :  bounds.width,
     height    :  bounds.height,
-    minWidth  :  900,
-    minHeight :  550,
+    minWidth  :  1200,
+    minHeight :  720,
     frame     :  useNativeFrame,
     show      :  false,
   };
@@ -98,6 +98,9 @@ app.on('ready', () => {
   mainWindow.webContents.on('new-window', (e) => {
     e.preventDefault();
   });
+  
+  // Open developer tools (comment out in production)
+  //mainWindow.webContents.openDevTools();
 
   // IPC events
   const ipcManager = new IpcManager(mainWindow);
@@ -137,8 +140,8 @@ function checkBounds(bounds) {
   if(!onScreen) {
     delete bounds.x;
     delete bounds.y;
-    bounds.width = 900;
-    bounds.height = 550;
+    bounds.width = 1200;
+    bounds.height = 720;
   }
 
   return bounds;

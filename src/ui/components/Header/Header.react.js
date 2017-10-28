@@ -4,7 +4,6 @@ import Input from 'react-simple-input';
 import KeyBinding from 'react-keybinding-component';
 
 import PlayingBar     from './PlayingBar.react';
-import WindowControls from './WindowControls.react';
 import PlayerControls from './PlayerControls.react';
 
 import AppActions from '../../actions/AppActions';
@@ -32,16 +31,6 @@ export default class Header extends Component {
     this.onKey = this.onKey.bind(this);
   }
 
-  getTopHeader() {
-    if(this.props.useNativeFrame) return null;
-
-    return (
-      <div className='top-header'>
-        <WindowControls />
-      </div>
-    );
-  }
-
   search(e) {
     AppActions.library.filterSearch(e.target.value);
   }
@@ -59,7 +48,6 @@ export default class Header extends Component {
   render() {
     return (
       <header>
-        { this.getTopHeader() }
         <div className='main-header'>
           <div className='col-main-controls'>
             <PlayerControls

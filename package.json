@@ -74,6 +74,7 @@
     "bluebird": "3.5.0",
     "bootstrap-css-only": "3.3.7",
     "classnames": "2.2.5",
+    "electron": "^1.7.9",
     "font-awesome": "4.7.0",
     "globby": "6.1.0",
     "keymirror": "0.1.1",

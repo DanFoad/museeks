@@ -14,7 +14,6 @@ $_window-control-size: #{$top-header-height}px;
 
 header {
   flex: 0 0 auto;
-  -webkit-app-region: drag;
 
   .player-controls,
   .now-playing-bar,
@@ -37,14 +36,6 @@ header {
 header {
   background-color: rgb(244, 244, 244);
   color: $_header-color;
-
-  .top-header {
-    display: flex;
-    justify-content: flex-end;
-    height: #{$top-header-height}px;
-    background-color: rgba(0, 0, 0, .065);
-    border-bottom: 1px solid rgb(210, 210, 210);
-  }
 
   .main-header {
     padding: 0 10px;

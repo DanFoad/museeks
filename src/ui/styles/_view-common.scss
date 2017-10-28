@@ -15,6 +15,50 @@
   height: 100%;
 }
 
+.top-header {
+  display: flex;
+  justify-content: flex-end;
+  height: #{$top-header-height}px;
+  background-color: rgba(0, 0, 0, .065);
+  border-bottom: 1px solid rgb(210, 210, 210);
+  
+  -webkit-app-region: drag;
+  
+  .window-controls {
+    -webkit-app-region: no-drag;
+  }
+}
+
+.body-container {
+  display: flex;
+  flex: 1;
+  flex-flow: row;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 280px;
+  min-width: 280px;
+}
+
+.download-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 280px;
+  min-width: 280px;
+  background-color: #262E4F;
+}
+
 .content,
 .view,
 .columns {

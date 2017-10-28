@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import Header from './Header/Header.react';
+import WindowControls from './Header/WindowControls.react';
 import Footer from './Footer/Footer.react';
 import Toasts from './Toasts/Toasts.react';
 
@@ -43,6 +44,16 @@ class Museeks extends Component {
     }
   }
 
+  getTopHeader() {
+    if(this.props.useNativeFrame) return null;
+
+    return (
+      <div className='top-header'>
+        <WindowControls />
+      </div>
+    );
+  }
+
   render() {
     const store = this.props.store;
     const trackPlayingId = (store.queue.length > 0 && store.queueCursor !== null) ? store.queue[store.queueCursor]._id : null;
@@ -55,40 +66,47 @@ class Museeks extends Component {
 
     return (
       <div className={mainClasses}>
-        <KeyBinding onKey={this.onKey} preventInputConflict />
-        <Header
-          app={this}
-          playerStatus={store.playerStatus}
-          repeat={store.repeat}
-          shuffle={store.shuffle}
-          queue={store.queue}
-          queueCursor={store.queueCursor}
-          useNativeFrame={config.useNativeFrame}
-        />
-        <div className='main-content container-fluid'>
-          <Row className='content'>
-            { React.cloneElement(
-              this.props.children, {
-                app               : this,
-                config,
-                playerStatus      : store.playerStatus,
-                queue             : store.queue,
-                tracks            : {
-                  all: store.tracks[store.tracksCursor].all,
-                  sub: store.tracks[store.tracksCursor].sub,
-                },
-                playlists         : store.playlists,
-                library           : store.library,
-                trackPlayingId,
-              })
-            }
-          </Row>
+        { this.getTopHeader() }
+        <div className='body-container'>
+          <div className='sidenav'></div>
+          <div className='main-container'>
+            <KeyBinding onKey={this.onKey} preventInputConflict />
+            <Header
+              app={this}
+              playerStatus={store.playerStatus}
+              repeat={store.repeat}
+              shuffle={store.shuffle}
+              queue={store.queue}
+              queueCursor={store.queueCursor}
+              useNativeFrame={config.useNativeFrame}
+            />
+            <div className='main-content container-fluid'>
+              <Row className='content'>
+                { React.cloneElement(
+                  this.props.children, {
+                    app               : this,
+                    config,
+                    playerStatus      : store.playerStatus,
+                    queue             : store.queue,
+                    tracks            : {
+                      all: store.tracks[store.tracksCursor].all,
+                      sub: store.tracks[store.tracksCursor].sub,
+                    },
+                    playlists         : store.playlists,
+                    library           : store.library,
+                    trackPlayingId,
+                  })
+                }
+              </Row>
+            </div>
+            <Footer
+              tracks={store.tracks[store.tracksCursor].sub}
+              library={store.library}
+            />
+            <Toasts toasts={store.toasts} />
+          </div>
+          <div className='download-container'></div>
         </div>
-        <Footer
-          tracks={store.tracks[store.tracksCursor].sub}
-          library={store.library}
-        />
-        <Toasts toasts={store.toasts} />
       </div>
     );
   }

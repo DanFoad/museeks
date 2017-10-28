@@ -46,6 +46,9 @@ export default class SettingsAbout extends Component {
               and a bunch of <ExternalLink href='https://github.com/KeitIG/museeks/graphs/contributors'>great people</ExternalLink>.
             </p>
             <p>
+              Modified by <ExternalLink href='http://danfoad.co.uk'>Dan Foad</ExternalLink>
+            </p>
+            <p>
               Want to contribute? Come and <ExternalLink href='https://gitter.im/KeitIG/museeks'>chat with us</ExternalLink>.
             </p>
           </div>
