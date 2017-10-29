@@ -137,6 +137,17 @@ export default class PlayingBar extends Component {
     });
   }
 
+  getAlbum(albumtitle) {
+    if (albumtitle != null && albumtitle != 'Unknown') {
+      return (
+            <div>&nbsp;on&nbsp;
+        <strong className='meta-album'>
+          { albumtitle }
+          </strong></div>
+      );
+    }
+  }
+
   render() {
     const queue = this.props.queue;
     const queueCursor = this.props.queueCursor;
@@ -158,27 +169,21 @@ export default class PlayingBar extends Component {
 
     return (
       <div className={nowPlayingTextClasses} >
-        <div className='now-playing-cover'>
-          <Cover path={trackPlaying.path} />
-        </div>
         <div className='now-playing-infos'>
+          <div className='metas'>
+            <strong className='meta-artist'>
+              { trackPlaying.artist.join(', ') }
+            </strong>
+            <strong className='meta-title'>
+              { trackPlaying.title }
+            </strong>
+
+            { this.getAlbum(trackPlaying.album) }
+          </div>
           <div className='now-playing-metas'>
             <div className='player-options'>
               <ButtonRepeat repeat={this.props.repeat} />
               <ButtonShuffle queue={this.props.queue} shuffle={this.props.shuffle} />
-            </div>
-            <div className='metas'>
-              <strong className='meta-title'>
-                { trackPlaying.title }
-              </strong>
-                          &nbsp;by&nbsp;
-              <strong className='meta-artist'>
-                { trackPlaying.artist.join(', ') }
-              </strong>
-                          &nbsp;on&nbsp;
-              <strong className='meta-album'>
-                { trackPlaying.album }
-              </strong>
             </div>
 
             <span className='duration'>
@@ -197,7 +202,11 @@ export default class PlayingBar extends Component {
             />
           </div>
         </div>
-        <div className='now-playing-queue'>
+      </div>
+    );
+  }
+/*
+<div className='now-playing-queue'>
           <Dropdown id='queue-dropdown' className='queue-dropdown'>
             <Dropdown.Toggle noCaret className='queue-toggle'>
               <Icon name='list' />
@@ -210,7 +219,5 @@ export default class PlayingBar extends Component {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-      </div>
-    );
-  }
+*/
 }

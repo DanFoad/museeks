@@ -31,20 +31,18 @@ header {
 header {
 
   .col-main-controls {
-    width: 200px;
     display: flex;
     align-items: center;
   }
 
   /* .windows-controls */
   .col-player-infos {
-    width: calc(100% - 400px);
+    width: 100%;
 
     .now-playing {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      max-width: 600px;
+      justify-content: center;
       margin: auto;
 
       &.dragging {
@@ -78,7 +76,32 @@ header {
       }
 
       .now-playing-infos {
-        width: calc(100% - 120px);
+        display: flex;
+        flex-flow: column;
+        min-width: 320px;
+        width: 60%;
+        
+        .metas {
+          display: flex;
+          flex-flow: column;
+          align-items: center;
+          margin-bottom: 16px;
+
+          strong {
+            display: inline-block;
+            color: #FFFFFF;
+          }
+          
+          .meta-artist {
+            font-size: 1.4em;
+            text-transform: uppercase;
+            font-weight: bold;
+          }
+          
+          .meta-title {
+            font-weight: light;
+          }
+        }
 
         .now-playing-metas {
           display: flex;
@@ -118,15 +141,6 @@ header {
                 height: auto;
               }
             }
-          }
-
-          .metas {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            vertical-align: middle;
-            text-align: center;
-            width: calc(100% - 200px);
           }
 
           .duration {
