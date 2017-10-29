@@ -100,7 +100,7 @@ app.on('ready', () => {
   });
   
   // Open developer tools (comment out in production)
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // IPC events
   const ipcManager = new IpcManager(mainWindow);

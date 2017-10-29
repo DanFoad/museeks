@@ -6,26 +6,6 @@ $_window-control-close-bg-hover: rgb(196, 36, 36);
 $_window-control-close-bg-active: darken($_window-control-close-bg-hover, 5%);
 $_window-control-size: #{$top-header-height}px;
 
-/*
-|--------------------------------------------------------------------------
-| Draggable region (zone able to move the window)
-|--------------------------------------------------------------------------
-*/
-
-header {
-  flex: 0 0 auto;
-
-  .player-controls,
-  .now-playing-bar,
-  .now-playing-info-buttons,
-  .now-playing-queue,
-  .search,
-  .window-controls {
-    -webkit-app-region: no-drag;
-  }
-}
-
-
 
 /*
 |--------------------------------------------------------------------------

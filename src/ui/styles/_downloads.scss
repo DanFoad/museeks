@@ -1,0 +1,36 @@
+/*
+|--------------------------------------------------------------------------
+| Downloads
+|--------------------------------------------------------------------------
+*/
+
+.download-header {
+  height: 72px;
+  background-color: #131B3C;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  
+  .download-settings {
+    display: inline-flex;
+    height: 32px;
+    width: 32px;
+    border: 1px solid #A1A4B1;
+    border-radius: 2px;
+    font-size: 20px;
+    color: #A1A4B1;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  h2 {
+    font-size: 1.8em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    color: #FFFFFF;
+    padding: 0 32px;
+    display: inline-block;
+    margin: 0;
+  }
+}

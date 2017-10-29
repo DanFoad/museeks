@@ -10,6 +10,8 @@ import Header from './Header/Header.react';
 import WindowControls from './Header/WindowControls.react';
 import Footer from './Footer/Footer.react';
 import Toasts from './Toasts/Toasts.react';
+import Downloads from './Downloads/Downloads.react';
+import Sidenav from './Sidenav/Sidenav.react';
 
 import AppActions from '../actions/AppActions';
 
@@ -68,7 +70,7 @@ class Museeks extends Component {
       <div className={mainClasses}>
         { this.getTopHeader() }
         <div className='body-container'>
-          <div className='sidenav'></div>
+          <Sidenav />
           <div className='main-container'>
             <KeyBinding onKey={this.onKey} preventInputConflict />
             <Header
@@ -105,7 +107,7 @@ class Museeks extends Component {
             />
             <Toasts toasts={store.toasts} />
           </div>
-          <div className='download-container'></div>
+          <Downloads />
         </div>
       </div>
     );
