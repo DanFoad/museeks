@@ -33,6 +33,7 @@ header {
   .col-main-controls {
     display: flex;
     align-items: center;
+    width: 100%;
   }
 
   /* .windows-controls */
@@ -89,7 +90,7 @@ header {
 
           strong {
             display: inline-block;
-            color: #FFFFFF;
+            color: #444444;
           }
           
           .meta-artist {
@@ -99,14 +100,14 @@ header {
           }
           
           .meta-title {
-            font-weight: light;
+            font-weight: 100;
           }
         }
 
         .now-playing-metas {
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: space-between;
           margin-bottom: 4px;
 
           .icon {
@@ -121,7 +122,6 @@ header {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            width: 100px;
 
             .button {
               border: 0;
@@ -147,7 +147,6 @@ header {
             display: inline-block;
             padding: 0 6px;
             font-size: 10px;
-            width: 100px;
             text-align: right;
           }
         }
@@ -381,7 +380,7 @@ header {
       padding-left: 4px;
       color: #AAAAAA;
       font-size: 0.8em;
-      font-weight: light;
+      font-weight: 100;
       text-transform: none;
     }
     
@@ -402,7 +401,11 @@ header {
 .player-controls {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
+  width: 100%;
+  height: 64px;
+  background-color: #E0E0E0;
 
   .player-control {
     border: 0;
@@ -412,13 +415,25 @@ header {
 
     &.play {
       font-size: 20px;
-      padding: 0 5px;
+      width: 48px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      border: 1px solid #888888;
+      margin: 0 4px;
+      
+      &[title='Play'] {
+        padding-left: 14px;
+      }
     }
 
     &.volume {
       padding: 0;
       width: 34px;
-      position: relative;
+      position: absolute;
+      right: 16px;
     }
 
     i {
@@ -430,7 +445,6 @@ header {
   .volume-control {
     position: absolute;
     z-index: 10;
-    background-color: rgb(244, 244, 244);
     top: -3px;
     right: 25px;
     display: none;

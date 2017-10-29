@@ -180,16 +180,6 @@ export default class PlayingBar extends Component {
 
             { this.getAlbum(trackPlaying.album) }
           </div>
-          <div className='now-playing-metas'>
-            <div className='player-options'>
-              <ButtonRepeat repeat={this.props.repeat} />
-              <ButtonShuffle queue={this.props.queue} shuffle={this.props.shuffle} />
-            </div>
-
-            <span className='duration'>
-              { utils.parseDuration(this.state.elapsed) } / { utils.parseDuration(trackPlaying.duration) }
-            </span>
-          </div>
           <div className='now-playing-bar' ref='playingBar'>
             <div className={nowPlayingTooltipClasses} style={{ left: `${this.state.x}%` }}>
               { utils.parseDuration(this.state.duration) }
@@ -200,6 +190,16 @@ export default class PlayingBar extends Component {
               onMouseMove={this.showTooltip}
               onMouseLeave={this.hideTooltip}
             />
+          </div>
+          <div className='now-playing-metas'>
+            <div className='player-options'>
+              <ButtonRepeat repeat={this.props.repeat} />
+              <ButtonShuffle queue={this.props.queue} shuffle={this.props.shuffle} />
+            </div>
+
+            <span className='duration'>
+              { utils.parseDuration(this.state.elapsed) } / { utils.parseDuration(trackPlaying.duration) }
+            </span>
           </div>
         </div>
       </div>

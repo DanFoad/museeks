@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import FullViewMessage from '../Shared/FullViewMessage.react';
 import TracksList from '../Shared/TracksList.react';
 
+import Header from '../Header/Header.react';
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,7 @@ export default class Library extends Component {
       if(this.props.library.refreshing) {
         return (
           <FullViewMessage>
-            <p>Your library is being scanned =)</p>
+            <p>Your library is being scanned</p>
             <p className='sub-message'>
                           hold still...
             </p>
@@ -50,7 +51,7 @@ export default class Library extends Component {
 
       return (
         <FullViewMessage>
-          <p>Too bad, there is no music in your library =(</p>
+          <p>There is no music in your library</p>
           <p className='sub-message'>
             <span>nothing found yet, but that's fine, you can always </span>
             <Link to='/settings/library'>add your music here</Link>
@@ -81,9 +82,23 @@ export default class Library extends Component {
   }
 
   render() {
+    const store = this.props.store;
+    const rawconfig = this.props.rawconfig;
+    const app = this.props.app;
     return (
-      <div className='view view-library' >
+      <div className='library-container'>
+        <Header
+          app={app}
+          playerStatus={store.playerStatus}
+          repeat={store.repeat}
+          shuffle={store.shuffle}
+          queue={store.queue}
+          queueCursor={store.queueCursor}
+          useNativeFrame={rawconfig.useNativeFrame}
+        />
+        <div className='view view-library' >
         { this.getLibraryComponent() }
+        </div>
       </div>
     );
   }

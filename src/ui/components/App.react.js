@@ -73,20 +73,13 @@ class Museeks extends Component {
           <Sidenav />
           <div className='main-container'>
             <KeyBinding onKey={this.onKey} preventInputConflict />
-            <Header
-              app={this}
-              playerStatus={store.playerStatus}
-              repeat={store.repeat}
-              shuffle={store.shuffle}
-              queue={store.queue}
-              queueCursor={store.queueCursor}
-              useNativeFrame={config.useNativeFrame}
-            />
             <div className='main-content container-fluid'>
               <Row className='content'>
                 { React.cloneElement(
                   this.props.children, {
                     app               : this,
+                    store             : store,
+                    rawconfig         : config,
                     config,
                     playerStatus      : store.playerStatus,
                     queue             : store.queue,
