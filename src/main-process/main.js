@@ -98,9 +98,6 @@ app.on('ready', () => {
   mainWindow.webContents.on('new-window', (e) => {
     e.preventDefault();
   });
-  
-  // Open developer tools (comment out in production)
-  mainWindow.webContents.openDevTools();
 
   // IPC events
   const ipcManager = new IpcManager(mainWindow);

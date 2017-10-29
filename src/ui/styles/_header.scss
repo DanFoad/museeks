@@ -18,8 +18,8 @@ header {
   color: $_header-color;
 
   .main-header {
-    padding: 0 10px;
     display: flex;
+    flex-flow: column;
     align-items: center;
     justify-content: space-between;
     height: #{$main-header-height}px;
@@ -345,7 +345,42 @@ header {
   /* .player-controls */
 
   .col-search-controls {
-    width: 200px;
+    height: 72px;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    padding: 0 48px 0 32px;
+    width: 100%;
+    justify-content: space-between;
+    
+    h2 {
+      color: #313754;
+      font-size: 1.4em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .sorting-method {
+      display: inline-block;
+      padding-left: 4px;
+      color: #AAAAAA;
+      font-size: 0.8em;
+      font-weight: light;
+      text-transform: none;
+    }
+    
+    .search {
+      border: 1px solid #E2DEDD;
+      border-radius: 32px;
+      background-color: transparent;
+      color: #AAAAAA;
+      font-weight: 100;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+    }
   }
 }
 

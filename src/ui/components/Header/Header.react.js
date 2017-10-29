@@ -49,9 +49,16 @@ export default class Header extends Component {
     return (
       <header>
         <div className='main-header'>
-          <div className='col-main-controls'>
-            <PlayerControls
-              playerStatus={this.props.playerStatus}
+          <div className="col-search-controls">
+            <h2>My Music <span className='sorting-method'>A-Z by Title</span></h2>
+            <Input
+              selectOnClick
+              placeholder='Enter keywords...'
+              className='form-control input-sm search'
+              changeTimeout={250}
+              clearButton
+              ref='search'
+              onChange={this.search}
             />
           </div>
           <div className='col-player-infos'>
@@ -62,15 +69,9 @@ export default class Header extends Component {
               repeat={this.props.repeat}
             />
           </div>
-          <div className="col-search-controls">
-            <Input
-              selectOnClick
-              placeholder='search'
-              className='form-control input-sm search'
-              changeTimeout={250}
-              clearButton
-              ref='search'
-              onChange={this.search}
+          <div className='col-main-controls'>
+            <PlayerControls
+              playerStatus={this.props.playerStatus}
             />
           </div>
         </div>
