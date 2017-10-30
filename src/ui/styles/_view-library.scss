@@ -8,6 +8,9 @@
 .library-container {
   height: 100%;
 }
+.view-library {
+  height: calc(100% - 300px);
+}
 .view-library,
 .view-playlists {
   overflow: hidden;

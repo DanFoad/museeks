@@ -197,6 +197,8 @@ header {
             margin-top: 3px;
             cursor: pointer;
             background-color: rgb(219, 219, 219);
+            border: 1px solid #AAAAAA;
+            border-radius: 4px;
 
             .progress-bar {
               background-color: $main-color;
