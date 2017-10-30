@@ -10,6 +10,8 @@ import mmd     from 'musicmetadata';
 import globby  from 'globby';
 import Promise from 'bluebird';
 
+const axios = require('axios');
+
 const musicmetadataAsync = Promise.promisify(mmd);
 
 /**
@@ -292,29 +294,26 @@ const getAudioDurationAsync = (path) => {
   });
 };
 
-const fetchCover = async (trackPath) => {
-  if(!trackPath) {
+const fetchCover = async (artist, title) => {
+  if(!artist || !title) {
     return null;
   }
 
-  const stream = fs.createReadStream(trackPath);
+  title = title.replace(/[^a-z0-9 ]/gi, '')
+  title = title.replace(/\s/g, '+')
+  artist = artist.replace(/[^a-z0-9 ]/gi, '')
+  artist = artist.replace(/\s/g, '+')
+  var uri = artist + '+' + title
 
-  const data = await musicmetadataAsync(stream);
-
-  if(data.picture[0]) { // If cover in id3
-    return parseBase64(data.picture[0].format, data.picture[0].data.toString('base64'));
-  }
-
-  // scan folder for any cover image
-  const folder = path.dirname(trackPath);
-  const pattern = path.join(folder, '*');
-  const matches = await globby(pattern, { nodir: true, follow: false });
-
-  return matches.find((elem) => {
-    const parsedPath = path.parse(elem);
-
-    return ['album', 'albumart', 'folder', 'cover'].includes(parsedPath.name.toLowerCase())
-            && ['.png', '.jpg', '.bmp', '.gif'].includes(parsedPath.ext.toLowerCase()) ;
+  return new Promise((resolve, reject) => {
+    axios.get('https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + uri + '&key=AIzaSyCShIqEyNE1hlw4Sda3kq8JRQWsg6qwUPc')
+    .then((response) => {
+      var res = response.data.items[0]
+      resolve('https://i.ytimg.com/vi/' + res.id.videoId + '/0.jpg');
+    })
+    .catch((error) => {
+      reject(null);
+    });
   });
 };
 

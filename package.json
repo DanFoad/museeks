@@ -1,17 +1,17 @@
 {
-  "name": "museeks",
-  "productName": "Museeks",
+  "name": "vinylmanager",
+  "productName": "Vinyl Manager",
   "version": "0.8.1",
-  "description": "A simple, clean and cross-platform music player, written with Node.js, Electron and React.js.",
+  "description": "Music player, manager & downloader, written with Node.js, Electron and React.js. Based off of Museeks by KeitIG",
   "main": "./src/main-process/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KeitIG/museeks"
+    "url": "https://github.com/DanFoad/vinylmanager"
   },
-  "author": "Pierre de la Martinière <pierre.de.la.martiniere@gmail.com>",
+  "author": "Dan Foad <contact@danfoad.co.uk>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KeitIG/museeks/issues"
+    "url": "https://github.com/DanFoad/vinylmanager/issues"
   },
   "scripts": {
     "ci:compile": "./node_modules/.bin/webpack --config webpack.config.js --bail",
@@ -27,7 +27,7 @@
     "package:m": "build -m"
   },
   "build": {
-    "appId": "io.museeks.app",
+    "appId": "io.vinylmanager.app",
     "electronVersion": "1.6.8",
     "files": [
       "src/*",
@@ -63,7 +63,7 @@
         "rpm",
         "AppImage"
       ],
-      "executableName": "museeks"
+      "executableName": "vinyl"
     },
     "win": {
       "target": "nsis",
@@ -71,6 +71,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.17.0",
     "bluebird": "3.5.0",
     "bootstrap-css-only": "3.3.7",
     "classnames": "2.2.5",

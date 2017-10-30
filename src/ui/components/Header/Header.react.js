@@ -5,6 +5,7 @@ import KeyBinding from 'react-keybinding-component';
 
 import PlayingBar     from './PlayingBar.react';
 import PlayerControls from './PlayerControls.react';
+import Cover          from '../Shared/Cover.react';
 
 import AppActions from '../../actions/AppActions';
 
@@ -35,6 +36,19 @@ export default class Header extends Component {
     AppActions.library.filterSearch(e.target.value);
   }
 
+  getCover() {
+    var queue        = this.props.queue;
+    var queueCursor  = this.props.queueCursor;
+    var trackPlaying = queue[queueCursor];
+    
+    if (!trackPlaying) {
+      return null
+    } else {
+      console.log(trackPlaying.artist + " " + trackPlaying.title);
+      return <Cover artist={trackPlaying.artist.join(', ')} title={trackPlaying.title} />
+    }
+  }
+
   onKey(e) {
     switch (e.keyCode) {
       case 70: { // "F"
@@ -46,9 +60,11 @@ export default class Header extends Component {
   }
 
   render() {
+    
     return (
       <header>
         <div className='main-header'>
+          { this.getCover() }
           <div className="col-search-controls">
             <h2>My Music <span className='sorting-method'>A-Z by Title</span></h2>
             <Input

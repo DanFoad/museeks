@@ -83,7 +83,7 @@ const checkForUpdate = async (options = {}) => {
   const currentVersion = app.version;
 
   try {
-    const response = await fetch('https://api.github.com/repos/KeitIG/museeks/releases');
+    const response = await fetch('https://api.github.com/repos/Danfoad/vinylmanager/releases');
     const releases = await response.json();
 
     const newRelease = releases.find((release) => {
@@ -92,9 +92,9 @@ const checkForUpdate = async (options = {}) => {
 
     let message;
     if (newRelease) {
-      message = `Museeks ${newRelease.tag_name} is available, check http://museeks.io!`;
+      message = `Vinyl Manager ${newRelease.tag_name} is available`;
     } else if(!options.silentFail) {
-      message = `Museeks ${currentVersion} is the latest version available.`;
+      message = `Vinyl Manager ${currentVersion} is the latest version available.`;
     }
 
     if (message) {

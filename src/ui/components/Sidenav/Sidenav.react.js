@@ -19,7 +19,7 @@ export default class Sidenav extends Component {
     return (
       <div className='sidenav'>
         <div className='sidenav-header'>
-          <h2>MUSEEKS</h2>
+          <h2>VINYL MANAGER</h2>
         </div>
       </div>
     );

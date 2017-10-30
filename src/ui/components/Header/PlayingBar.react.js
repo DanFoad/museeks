@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { ProgressBar, Dropdown } from 'react-bootstrap';
 import Icon from 'react-fontawesome';
 
-
 import ButtonShuffle from './ButtonShuffle.react';
 import ButtonRepeat  from './ButtonRepeat.react';
 import Queue         from './Queue.react';
-import Cover         from '../Shared/Cover.react';
 
 import Player from '../../lib/player';
 import utils  from '../../utils/utils';

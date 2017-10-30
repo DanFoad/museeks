@@ -12,7 +12,8 @@ import utils  from '../../utils/utils';
 
 export default class TrackCover extends PureComponent {
   static propTypes = {
-    path: PropTypes.string,
+    artist: PropTypes.string,
+    title: PropTypes.string
   }
 
   constructor(props) {
@@ -29,14 +30,14 @@ export default class TrackCover extends PureComponent {
   }
 
   async componentWillUpdate(nextProps) {
-    if(nextProps.path !== this.props.path) {
-      const coverPath = await utils.fetchCover(nextProps.path);
+    if(nextProps.artist !== this.props.artist || nextProps.title !== this.props.title ) {
+      const coverPath = await utils.fetchCover(nextProps.artist, nextProps.title);
       this.setState({ coverPath });
     }
   }
 
   async fetchInitialCover() {
-    const coverPath = await utils.fetchCover(this.props.path);
+    const coverPath = await utils.fetchCover(this.props.artist, this.props.title);
     this.setState({ coverPath });
   }
 
@@ -45,15 +46,12 @@ export default class TrackCover extends PureComponent {
       const coverPath = encodeURI(this.state.coverPath)
         .replace(/'/g, '\\\'')
         .replace(/"/g, '\\"');
-      const styles = { backgroundImage: `url('${coverPath}')` };
 
-      return <div className='cover' style={styles} />;
+      return <div className='cover' ><img src={ coverPath } /></div>;
     }
 
     return(
-      <div className='cover empty'>
-        <div className='note'>♪</div>
-      </div>
+      <div></div>
     );
   }
 }

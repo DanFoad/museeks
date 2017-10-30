@@ -28,17 +28,14 @@
       z-index: 20;
 
       .track-cell-header {
-        font-weight: 700;
+        font-weight: 300;
+        letter-spacing: 1px;
         padding: 0 4px;
         cursor: default;
         margin: 4px 0;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
-        &:not(:last-child) {
-          border-right: 1px solid #D2D2D2;
-        }
       }
     }
 
@@ -76,11 +73,11 @@
             display: flex;
 
             &:nth-child(odd) {
-              background-color: #F4F4F4;
+              background-color: #FDFDFD;
             }
 
             &.selected {
-              background-color: $main-color;
+              background-color: #FF8266;
               color: $generic-white;
 
               // put that elsewhere someday

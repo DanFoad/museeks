@@ -42,7 +42,7 @@ const init = () => {
 
     if(app.browserWindows.main.isFocused()) return;
 
-    const cover = await utils.fetchCover(track.path);
+    const cover = await utils.fetchCover(track.artist, track.title);
     NotificationActions.add({
       title: track.title,
       body: `${track.artist}\n${track.album}`,
