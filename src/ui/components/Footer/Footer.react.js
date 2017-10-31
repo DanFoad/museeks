@@ -4,6 +4,8 @@ import { Row, Col, Button, ButtonGroup, ProgressBar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Icon from 'react-fontawesome';
 
+import AppActions from '../../actions/AppActions';
+
 import classnames from 'classnames';
 
 import utils from '../../utils/utils';
@@ -61,6 +63,14 @@ export default class Footer extends Component {
       </ButtonGroup>
     );
 
+    const refreshButton = (
+      <Col sm={1} smOffset={3}>
+        <Button className='refresh-button' title='Refresh Library' onClick={ () => AppActions.library.addFile('/home/dan/Downloads/Declan_McKenna_Why_Do_You_Feel_So_Down_Official_Video_.mp3') }>
+          <Icon name='refresh' fixedWidth />
+        </Button>
+      </Col>
+    );
+    
     return (
       <footer className='container-fluid'>
         <Row>

@@ -90,6 +90,12 @@ class IpcManager {
         },
         ...addToQueueTemplate,
         {
+          label: 'Edit',
+          click: () => {
+            event.sender.send('tracksListContextMenuReply', 'edit', { id: data.track._id });
+          }
+        },
+        {
           label: 'Add to playlist',
           submenu: playlistTemplate,
         },

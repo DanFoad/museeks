@@ -4,19 +4,23 @@
 |--------------------------------------------------------------------------
 */
 
-.sidenav-header {
-  display: flex;
-  height: 72px;
-  background-color: #FF5E3A;
-  align-items: center;
-  justify-content: center;
+.sidenav {
+  background-color: #F2F2F0;
   
-  h2 {
-    font-size: 1.8em;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 100;
-    color: #FFFFFF;
-    display: inline-block;
-    margin: 0;
+  .sidenav-header {
+    display: flex;
+    height: 72px;
+    background-color: #FF5E3A;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+      font-size: 1.8em;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 100;
+      color: #FFFFFF;
+      display: inline-block;
+      margin: 0;
+    }
   }
 }

@@ -6,6 +6,8 @@ import TrackRow from './TrackRow.react';
 import PlayingIndicator from './PlayingIndicator.react';
 import CustomScrollbar from './CustomScrollbar.react';
 
+import EditingInput from '../Library/EditingInput.react';
+
 import AppActions from '../../actions/AppActions';
 
 import Player from '../../lib/player';
@@ -35,6 +37,8 @@ export default class TracksList extends Component {
     this.state = {
       selected  : [],
       scrollTop : 0,
+      trackEditingId: -1,
+      editingTrackMetadata: {},
     };
 
     this.showContextMenu  = this.showContextMenu.bind(this);
@@ -47,6 +51,7 @@ export default class TracksList extends Component {
 
   componentDidMount() {
     const self = this;
+    const tracks = this.props.tracks;
 
     this.renderView = document.querySelector('.tracks-list-render-view');
 
@@ -60,6 +65,17 @@ export default class TracksList extends Component {
         }
         case 'playNext': {
           AppActions.queue.addNext(selected);
+          break;
+        }
+        case 'edit': {
+          var metadata;
+          for (var i = 0; i < tracks.length; i++) {
+            if (tracks[i]._id === data.id) {
+              metadata = tracks[i].copy();
+              break;
+            }
+          }
+          this.setState({ trackEditingId: data.id, editingTrackMetadata: metadata });
           break;
         }
         case 'addToPlaylist': {
@@ -105,15 +121,21 @@ export default class TracksList extends Component {
 
   selectTrack(e, id, index) {
     if(this.isLeftClick(e) || (this.isRightClick(e) && this.isSelectableTrack(id))) {
+      if (this.state.trackEditingId !== id && this.state.trackEditingId !== -1) this.editComplete();
       if(e.ctrlKey) {
         this.toggleSelectionById(id);
       } else if (e.shiftKey) {
         this.multiSelect(e, id, index);
       } else {
-        const selected = [id];
-        this.setState({ selected });
+          const selected = [id];
+          this.setState({ selected });
       }
     }
+  }
+
+  editComplete() {
+    AppActions.library.setMetadata(this.state.editingTrackMetadata);
+    this.setState({ trackEditingId: -1 });
   }
 
   onKey(e) {
@@ -159,6 +181,7 @@ export default class TracksList extends Component {
     const selected       = this.state.selected;
     const tracks         = [...this.props.tracks];
     const trackPlayingId = this.props.trackPlayingId;
+    const trackEditingId = this.state.trackEditingId;
 
     const chunkLength = 20;
     const tilesToDisplay = 5;
@@ -177,35 +200,88 @@ export default class TracksList extends Component {
           playingIndicator = <PlayingIndicator state={this.pausePlayState()} />;
         }
 
-        return(
-          <TrackRow
-            selected={selected.includes(track._id)}
-            trackId={track._id}
-            key={index}
-            index={trackRowIndex}
-            onMouseDown={self.selectTrack}
-            onContextMenu={self.showContextMenu}
-          >
-            <div className='cell cell-track-playing text-center'>
-              { playingIndicator }
-            </div>
-            <div className='cell cell-track'>
-              { track.title }
-            </div>
-            <div className='cell cell-duration'>
-              { utils.parseDuration(track.duration) }
-            </div>
-            <div className='cell cell-artist'>
-              { track.artist[0] }
-            </div>
-            <div className='cell cell-album'>
-              { track.album }
-            </div>
-            <div className='cell cell-genre'>
-              { track.genre.join(', ') }
-            </div>
-          </TrackRow>
-        );
+        if (trackEditingId === track._id) {
+          console.log(this.state.editingTrackMetadata);
+          return(
+            <TrackRow
+              selected={selected.includes(track._id)}
+              trackId={track._id}
+              key={index}
+              index={trackRowIndex}
+              onMouseDown={self.selectTrack}
+              onContextMenu={self.showContextMenu}
+            >
+              <div className='cell cell-track-playing text-center'>
+                { playingIndicator }
+              </div>
+              <div className='cell cell-track'>
+                <EditingInput
+                  track={track}
+                  field={'title'}
+                  initialValue={track.title}
+                  metadata={this.state.editingTrackMetadata}
+                />
+              </div>
+              <div className='cell cell-duration'>
+                { utils.parseDuration(track.duration) }
+              </div>
+              <div className='cell cell-artist'>
+                <EditingInput
+                  track={track}
+                  field={'artist'}
+                  initialValue={track.artist[0]}
+                  metadata={this.state.editingTrackMetadata}
+                />
+              </div>
+              <div className='cell cell-album'>
+                <EditingInput
+                  track={track}
+                  field={'album'}
+                  initialValue={track.album}
+                  metadata={this.state.editingTrackMetadata}
+                />
+              </div>
+              <div className='cell cell-genre'>
+                <EditingInput
+                  track={track}
+                  field={'genre'}
+                  initialValue={track.genre.join(', ') }
+                  metadata={this.state.editingTrackMetadata}
+                />
+              </div>
+            </TrackRow>
+          );
+        } else {
+          return(
+            <TrackRow
+              selected={selected.includes(track._id)}
+              trackId={track._id}
+              key={index}
+              index={trackRowIndex}
+              onMouseDown={self.selectTrack}
+              onContextMenu={self.showContextMenu}
+            >
+              <div className='cell cell-track-playing text-center'>
+                { playingIndicator }
+              </div>
+              <div className='cell cell-track'>
+                { track.title }
+              </div>
+              <div className='cell cell-duration'>
+                { utils.parseDuration(track.duration) }
+              </div>
+              <div className='cell cell-artist'>
+                { track.artist[0] }
+              </div>
+              <div className='cell cell-album'>
+                { track.album }
+              </div>
+              <div className='cell cell-genre'>
+                { track.genre.join(', ') }
+              </div>
+            </TrackRow>
+          );
+        }
       });
 
       const translationDistance = (tilesScrolled * this.rowHeight * chunkLength) +

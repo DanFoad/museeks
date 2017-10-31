@@ -81,6 +81,42 @@ scanQueue.on('success', () => {
   refreshProgress(scan.processed, scan.total);
 });
 
+const setMetadata = async (track) => {
+  if (!track) return;
+  var metadata = {
+    'artist': track.artist[0] || 'Unknown',
+    'album': track.album || 'Unknown',
+    'title': track.title || 'Unknown'
+  }
+  await app.models.Track.update({_id: track._id}, track, {}, (err, numReplaced) => {
+    if (err) console.log(err);
+  });
+  return utils.setMusicMetadata(track.path, metadata);
+}
+
+const addFile = (filePath) => {
+  store.dispatch({
+    type: AppConstants.APP_LIBRARY_REFRESH_START,
+  });
+  
+  app.models.Track.findAsync({ path: filePath }).then((docs) => {
+    if (docs.length === 0) {
+      return utils.getMetadata(filePath);
+    }
+    return null;
+  }).then(async (track) => {
+    // If null, that means a track with the same absolute path already exists in the database
+    if(track === null) return;
+    // else, insert the new document in the database
+    await app.models.Track.insertAsync(track);
+    AppActions.library.load();
+  })
+  
+  store.dispatch({
+    type : AppConstants.APP_LIBRARY_REFRESH_END,
+  });
+}
+
 const add = (pathsToScan) => {
   store.dispatch({
     type : AppConstants.APP_LIBRARY_REFRESH_START,
@@ -241,7 +277,9 @@ const incrementPlayCount = async (source) => {
 
 export default {
   add,
+  addFile,
   load,
+  setMetadata,
   setTracksCursor,
   resetTracks,
   filterSearch,

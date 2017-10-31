@@ -113,6 +113,7 @@ const models = {
 };
 
 Promise.promisifyAll(models.Track.find().__proto__);
+Promise.promisifyAll(models.Track.update.__proto__);
 Promise.promisifyAll(models.Track);
 Promise.promisifyAll(models.Playlist);
 

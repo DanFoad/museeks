@@ -11,6 +11,7 @@ import globby  from 'globby';
 import Promise from 'bluebird';
 
 const axios = require('axios');
+const ffmetadata = require('ffmetadata');
 
 const musicmetadataAsync = Promise.promisify(mmd);
 
@@ -226,6 +227,12 @@ const getWavMetadata = async (track) => {
   return metadata;
 };
 
+const setMusicMetadata = async (track, metadata) => {
+  await ffmetadata.write(track, metadata, (err) => {
+    if (err) console.error("Error" + err);
+  });
+};
+
 const getMusicMetadata = async (track) => {
   const defaultMetadata = getDefaultMetadata();
 
@@ -327,4 +334,5 @@ export default {
   chunkArray,
   getMetadata,
   fetchCover,
+  setMusicMetadata,
 };
