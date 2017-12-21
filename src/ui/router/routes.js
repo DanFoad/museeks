@@ -6,11 +6,12 @@ import { Route, IndexRedirect } from 'react-router';
 import AppActions from '../actions/AppActions';
 
 // Components
-import App       from '../components/App.react';
-import Library   from '../components/Library/Library.react';
-import Playlists from '../components/Playlists/Playlists.react';
-import Playlist  from '../components/Playlists/Playlist.react';
-import Settings  from '../components/Settings/Settings.react';
+import App        from '../components/App.react';
+import Library    from '../components/Library/Library.react';
+import Playlists  from '../components/Playlists/Playlists.react';
+import Playlist   from '../components/Playlists/Playlist.react';
+import Settings   from '../components/Settings/Settings.react';
+import Downloader from '../components/Downloads/Downloader.react';
 
 import SettingsLibrary  from '../components/Settings/SettingsLibrary.react';
 import SettingsUI       from '../components/Settings/SettingsUI.react';
@@ -50,6 +51,7 @@ const routes = (
     <Route path='playlists' component={Playlists}>
       <Route path=':playlistId' component={Playlist} onEnter={init.playlist} />
     </Route>
+    <Route path='downloader' component={Downloader} />
   </Route>
 );
 

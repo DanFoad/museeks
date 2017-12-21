@@ -12,6 +12,10 @@ export default {
     },
   },
 
+  inputs: [
+    {title: '', arist: ''},
+  ],
+
   tracksCursor      : 'library', // 'library' or 'playlist'
 
   queue             :  [], // Tracks to be played

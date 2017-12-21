@@ -81,6 +81,7 @@ class Museeks extends Component {
                     store             : store,
                     rawconfig         : config,
                     config,
+                    inputs            : store.inputs,
                     playerStatus      : store.playerStatus,
                     queue             : store.queue,
                     tracks            : {

@@ -55,6 +55,11 @@ export default class Footer extends Component {
             <Icon name='star' fixedWidth />
           </Button>
         </LinkContainer>
+        <LinkContainer to='/downloader'>
+          <Button className='view-link' title='Downloader'>
+            <Icon name='download' fixedWidth />
+          </Button>
+        </LinkContainer>
         <LinkContainer to='/settings'>
           <Button className='view-link' title='Settings'>
             <Icon name='gear' fixedWidth />
@@ -74,10 +79,10 @@ export default class Footer extends Component {
     return (
       <footer className='container-fluid'>
         <Row>
-          <Col sm={3}>
+          <Col sm={4}>
             { navButtons }
           </Col>
-          <Col sm={5} className='status text-center'>
+          <Col sm={4} className='status text-center'>
             { status }
           </Col>
         </Row>
