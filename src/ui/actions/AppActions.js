@@ -1,6 +1,7 @@
 import Player from '../lib/player';
 import app    from '../lib/app';
 import utils from '../utils/utils';
+import store from '../store';
 
 import LibraryActions      from './LibraryActions';
 import PlaylistsActions    from './PlaylistsActions';
@@ -10,6 +11,7 @@ import PlayerActions       from './PlayerActions';
 import QueueActions        from './QueueActions';
 import SettingsActions     from './SettingsActions';
 import DownloaderActions   from './DownloaderActions';
+import AppConstants from '../constants/AppConstants';
 
 const globalShortcut = electron.remote.globalShortcut;
 const ipcRenderer    = electron.ipcRenderer;
@@ -119,6 +121,10 @@ const maximize = () => {
   app.browserWindows.main.isMaximized() ? app.browserWindows.main.unmaximize() : app.browserWindows.main.maximize();
 };
 
+const getAppPath = () => {
+  return app.pathApp
+}
+
 const saveBounds = () => {
   const now = window.performance.now();
 
@@ -149,6 +155,27 @@ const initShortcuts = () => {
   });
 };
 
+const completeDownload = (index, artist, title, data) => {
+  var queue = store.getState().downloadQueue
+  var downloadState = 'starting'
+  var nextIndex = index + 1
+
+  LibraryActions.addFile(data.file)
+
+  if (index == queue.length - 1) {
+    downloadState = 'idle'
+    nextIndex = -1
+    queue = []
+  }
+  store.dispatch({
+    type: AppConstants.APP_DOWNLOADER_COMPLETE,
+    downloadProgress: 0,
+    downloadState: downloadState,
+    downloadCursor: nextIndex,
+    downloadQueue: queue,
+  })
+}
+
 export default {
   player        : PlayerActions,
   playlists     : PlaylistsActions,
@@ -164,8 +191,10 @@ export default {
   initShortcuts,
   maximize,
   minimize,
+  getAppPath,
   saveBounds,
   start,
+  completeDownload,
 
   app: {
     restart,

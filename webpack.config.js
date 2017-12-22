@@ -11,6 +11,7 @@ const commandline = minimist(process.argv.slice(2));
 
 const pluginsList = [
   new ExtractTextPlugin({ filename: 'main.css', allChunks: true }),
+  new webpack.DefinePlugin({ 'process.env.FLUENTFFMPEG_COV': false }),
 ];
 
 let devtool;

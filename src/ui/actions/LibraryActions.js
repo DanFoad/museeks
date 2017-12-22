@@ -94,7 +94,7 @@ const setMetadata = async (track) => {
   return utils.setMusicMetadata(track.path, metadata);
 }
 
-const addFile = (filePath) => {
+const addFile = (filePath, artist='', title='') => {
   store.dispatch({
     type: AppConstants.APP_LIBRARY_REFRESH_START,
   });
@@ -109,6 +109,12 @@ const addFile = (filePath) => {
     if(track === null) return;
     // else, insert the new document in the database
     await app.models.Track.insertAsync(track);
+    
+    if (artist !== '' || title !== '') {
+      track.artist[0] = artist
+      track.title = title
+      AppActions.library.setMetadata(track)
+    }
     AppActions.library.load();
   })
   

@@ -17,7 +17,9 @@ export default {
   ],
 
   downloadQueue     : [], // Songs to be downloaded
-  downloadCursor    : null,
+  downloadCursor    : -1, // Which track is currently being downloaded
+  downloadProgress  : 0.0, // Current percentage progress of download
+  downloadState     : 'idle', // Current state of downloading process
 
   tracksCursor      : 'library', // 'library' or 'playlist'
 

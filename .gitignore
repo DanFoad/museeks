@@ -2,6 +2,8 @@ node_modules/
 src/dist
 dist/
 cache/
+*.mp3
+*.wav
 build/dist
 
 npm-debug.log

@@ -101,7 +101,12 @@ class App extends Component {
             />
             <Toasts toasts={store.toasts} />
           </div>
-          <Downloads downloadQueue={store.downloadQueue} />
+          <Downloads
+            downloadQueue={store.downloadQueue} 
+            downloadCursor={store.downloadCursor}
+            downloadState={store.downloadState}
+            downloadProgress={store.downloadProgress}
+          />
         </div>
       </div>
     );

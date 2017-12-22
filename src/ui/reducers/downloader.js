@@ -14,6 +14,39 @@ export default (state = {}, payload) => {
       }
     }
 
+    case (AppConstants.APP_DOWNLOADER_SET_INPUTS): {
+      return {
+        ...state,
+        inputs: payload.inputs,
+      }
+    }
+
+    case (AppConstants.APP_DOWNLOADER_START): {
+      return {
+        ...state,
+        downloadCursor: payload.downloadCursor,
+        downloadState: payload.downloadState,
+      }
+    }
+
+    case (AppConstants.APP_DOWNLOADER_UPDATE_PROGRESS): {
+      return {
+        ...state,
+        downloadProgress: payload.downloadProgress,
+        downloadState: payload.downloadState,
+      }
+    }
+
+    case (AppConstants.APP_DOWNLOADER_COMPLETE): {
+      return {
+        ...state,
+        downloadProgress: payload.downloadProgress,
+        downloadState: payload.downloadState,
+        downloadCursor: payload.downloadCursor,
+        downloadQueue: payload.downloadQueue,
+      }
+    }
+
     default: {
       return state;
     }

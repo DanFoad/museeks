@@ -123,12 +123,17 @@ export default class YoutubeSearcher extends Component {
         <div className='youtube-message'>Done</div>
       )
     }
+
     var currentInput = { ...this.state.inputs[this.state.currentIndex] }
-    var title = currentInput.title.replace(/[^a-z0-9 ]/gi, '')
-    title = title.replace(/\s/g, '+')
-    var artist = currentInput.artist.replace(/[^a-z0-9 ]/gi, '')
-    artist = artist.replace(/\s/g, '+')
-    var uri = artist + '+' + title
+
+    if (currentInput == undefined || (currentInput.artist.length == 0 && currentInput.title.length == 0)) {
+      this.setState({
+        currentIndex: this.state.currentIndex + 1,
+      })
+      return null
+    }
+
+    var uri = encodeURI(currentInput.artist + ' - ' + currentInput.title)
 
     var result = [];
     if (this.state.youtubeResults.length == 0) {

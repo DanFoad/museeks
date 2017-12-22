@@ -42,4 +42,8 @@ export default keymirror({
   APP_NOTIFICATION_NEW : null,
 
   APP_DOWNLOADER_ADD  : null,
+  APP_DOWNLOADER_SET_INPUTS : null,
+  APP_DOWNLOADER_START : null,
+  APP_DOWNLOADER_UPDATE_PROGRESS : null,
+  APP_DOWNLOADER_COMPLETE : null,
 });

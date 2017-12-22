@@ -7,6 +7,7 @@ import Icon from 'react-fontawesome';
 
 import YoutubeSearcher from './YoutubeSearch.react';
 import FullViewMessage from '../Shared/FullViewMessage.react';
+import AppActions from '../../actions/AppActions';
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,12 @@ export default class Downloader extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      inputs: nextProps.inputs,
+    })
+  }
+
   handleManualSubmit(event) {
     this.setState({
       stage: 'searching',
@@ -46,12 +53,11 @@ export default class Downloader extends Component {
     var newInputs = [ ...this.state.inputs ]
     newInputs[key][header] = value
 
-    this.setState({
-      inputs: newInputs,
-    })
+    AppActions.downloader.setInputs(newInputs)
   }
 
   doneSearching() {
+    AppActions.downloader.setInputs([{title: '', arist: ''}])
     this.setState({
       stage: 'input',
     })

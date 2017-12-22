@@ -18,6 +18,7 @@ const browserWindows = {};
 browserWindows.main = remote.getCurrentWindow();
 
 const pathUserData = app.getPath('userData');
+const pathApp      = app.getAppPath();
 const pathSrc      = __dirname;
 
 
@@ -127,6 +128,7 @@ Promise.promisifyAll(models.Playlist);
 export default {
   supportedExtensions, // supported audio formats
   pathSrc, // path of the app
+  pathApp,
   browserWindows, // Object containing all the windows
   models, // database models
   version       : app.getVersion(), // Museeks version
