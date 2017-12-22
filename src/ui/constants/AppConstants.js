@@ -40,4 +40,6 @@ export default keymirror({
   APP_TOAST_REMOVE : null,
 
   APP_NOTIFICATION_NEW : null,
+
+  APP_DOWNLOADER_ADD  : null,
 });

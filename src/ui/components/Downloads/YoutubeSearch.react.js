@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import AppActions from '../../actions/AppActions';
+
 import axios from 'axios'
 
 /*
@@ -13,7 +15,10 @@ const key =	'AIzaSyCShIqEyNE1hlw4Sda3kq8JRQWsg6qwUPc'
 
 
 export default class YoutubeSearcher extends Component {
-  static propTypes = {}
+  static propTypes = {
+    callback: PropTypes.func,
+    inputs: PropTypes.array,
+  }
 
   constructor(props) {
     super(props);
@@ -33,27 +38,37 @@ export default class YoutubeSearcher extends Component {
 
   async searchYoutube(uri) {
     return new Promise((resolve, reject) => {
-      axios.get('https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + uri + '&key=' + key)
+      axios.get('https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=' + uri + '&key=' + key)
         .then((response) => {
+          if (response.data.items.length == 0) {
+            this.setState({
+              youtubeResults: {id: -1, title: 'No Videos Found', img: ''}
+            })
+            resolve(-1)
+            return
+          }
+
           var results = []
           var ids = ''
+          var min = Math.min(response.data.items.length, 5)
 
-          for (var i = 0; i < 5; i++) {
+          for (var i = 0; i < min; i++) {
             var res = response.data.items[i]
             var id = res.id.videoId
             var title = res.snippet.title
             var img = 'https://i.ytimg.com/vi/' + res.id.videoId + '/0.jpg'
             results.push({
-              title, img
+              id, title, img
             })
             ids += id
-            if (i < 4) ids += ','
+            if (i < min - 1) ids += ','
           }
 
           var uri = 'https://www.googleapis.com/youtube/v3/videos?id=' + ids + '&part=contentDetails&key=' + key
           axios.get(uri)
             .then((contentResponse) => {
-              for (var i = 0; i < 5; i++) {
+              for (var i = 0; i < min; i++) {
+                
                 var duration = contentResponse.data.items[i].contentDetails.duration
                 results[i].duration = duration
               }
@@ -92,11 +107,22 @@ export default class YoutubeSearcher extends Component {
     return output
   }
 
-  selectYoutubeVideo(index) {
+  selectYoutubeVideo(index, title, artist) {
     var selectedVideo = { ...this.state.youtubeResults[index] }
+    AppActions.downloader.add(selectedVideo.id, title, artist)
+    this.setState({
+      currentIndex: this.state.currentIndex + 1,
+      youtubeResults: []
+    })
   }
 
   searchForCurrentInput() {
+    if (this.state.currentIndex == this.state.inputs.length) {
+      this.props.callback()
+      return(
+        <div className='youtube-message'>Done</div>
+      )
+    }
     var currentInput = { ...this.state.inputs[this.state.currentIndex] }
     var title = currentInput.title.replace(/[^a-z0-9 ]/gi, '')
     title = title.replace(/\s/g, '+')
@@ -106,13 +132,13 @@ export default class YoutubeSearcher extends Component {
 
     var result = [];
     if (this.state.youtubeResults.length == 0) {
-      result = <div className='youtube-result'><p>loading...</p></div>
+      result = <div className='youtube-message'>loading...</div>
       this.searchYoutube(uri)
     } else {
       for (var i = 0; i < 5; i++) {
         var youtubeResult = { ...this.state.youtubeResults[i] }
         result.push(
-          <div onClick={this.selectYoutubeVideo.bind(this, i)} className='youtube-result' key={i}>
+          <div onClick={this.selectYoutubeVideo.bind(this, i, currentInput.title, currentInput.artist)} className='youtube-result' key={i}>
             <div className='youtube-result-inner'>
               <img src={youtubeResult.img} />
               <span>{this.getDurationValue(youtubeResult.duration)}</span>

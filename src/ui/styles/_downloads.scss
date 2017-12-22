@@ -11,6 +11,7 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
+  margin-bottom: 16px;
   
   .download-settings {
     display: inline-flex;
@@ -32,6 +33,56 @@
     padding: 0 32px;
     display: inline-block;
     margin: 0;
+  }
+}
+.download-item {
+  height: 64px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  color: #FFFFFF;
+  padding: 0 24px;
+
+  h3 {
+    width: calc(100% - 32px);
+    font-size: 1.1em;
+    margin: 0;
+  }
+
+  .download-info {
+    display: inline-flex;
+    width: 100%;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+
+  .download-status {
+    height: 24px;
+    width: 24px;
+    font-size: 2em;
+    text-align: center;
+    line-height: 24px;
+    margin-left: 16px;
+  }
+
+  .download-progress {
+    height: 6px;
+    border-radius: 3px;
+    flex: 1;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: relative;
+
+    div {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      border-radius: 3px;
+      background-color: #006bd2;
+    }
   }
 }
 
@@ -138,6 +189,10 @@
   flex-flow: row nowrap;
   align-items: stretch;
   justify-content: space-between;
+
+  .youtube-message {
+    font-size: 1.1em;
+  }
 
   .youtube-result {
     flex: 1;

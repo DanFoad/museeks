@@ -16,6 +16,9 @@ export default {
     {title: '', arist: ''},
   ],
 
+  downloadQueue     : [], // Songs to be downloaded
+  downloadCursor    : null,
+
   tracksCursor      : 'library', // 'library' or 'playlist'
 
   queue             :  [], // Tracks to be played

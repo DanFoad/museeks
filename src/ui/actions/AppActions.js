@@ -9,6 +9,7 @@ import NotificationActions from './NotificationActions';
 import PlayerActions       from './PlayerActions';
 import QueueActions        from './QueueActions';
 import SettingsActions     from './SettingsActions';
+import DownloaderActions   from './DownloaderActions';
 
 const globalShortcut = electron.remote.globalShortcut;
 const ipcRenderer    = electron.ipcRenderer;
@@ -156,6 +157,7 @@ export default {
   settings      : SettingsActions,
   toasts        : ToastsActions,
   notifications : NotificationActions,
+  downloader    : DownloaderActions,
 
   close,
   init,

@@ -24,7 +24,7 @@ import app from '../lib/app';
 |--------------------------------------------------------------------------
 */
 
-class Museeks extends Component {
+class App extends Component {
   static propTypes = {
     store: PropTypes.object,
     children: PropTypes.object,
@@ -101,7 +101,7 @@ class Museeks extends Component {
             />
             <Toasts toasts={store.toasts} />
           </div>
-          <Downloads />
+          <Downloads downloadQueue={store.downloadQueue} />
         </div>
       </div>
     );
@@ -112,4 +112,4 @@ function mapStateToProps(state) {
   return { store: { ...state } };
 }
 
-export default connect(mapStateToProps)(Museeks);
+export default connect(mapStateToProps)(App);

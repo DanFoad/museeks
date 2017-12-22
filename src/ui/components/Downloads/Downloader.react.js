@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Icon from 'react-fontawesome';
+
 import YoutubeSearcher from './YoutubeSearch.react';
 import FullViewMessage from '../Shared/FullViewMessage.react';
 
@@ -49,6 +51,12 @@ export default class Downloader extends Component {
     })
   }
 
+  doneSearching() {
+    this.setState({
+      stage: 'input',
+    })
+  }
+
   addRow() {
     var newInputs = [ ...this.state.inputs, {title: '', artist: ''} ]
     this.setState({
@@ -82,7 +90,7 @@ export default class Downloader extends Component {
             {this.getInputRows()}
           </form>
           <div className='input-buttons'>
-            <button onClick={this.addRow.bind(this)} className='add'><i className='fa fa-plus' /></button>
+            <button onClick={this.addRow.bind(this)} className='add'><Icon name='plus' /></button>
             <input onClick={this.handleManualSubmit} type='submit' value='Download' />
           </div>
         </div>
@@ -90,7 +98,7 @@ export default class Downloader extends Component {
     } else if (this.state.stage == 'searching') {
       manualInputs = (
         <div className='downloader-manualinputs' ref={(container) => {this.inputsContainer = container}}>
-          <YoutubeSearcher inputs={this.state.inputs} />
+          <YoutubeSearcher inputs={this.state.inputs} callback={this.doneSearching.bind(this)} />
         </div>
       )
     }

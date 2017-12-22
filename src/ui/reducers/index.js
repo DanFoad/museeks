@@ -4,6 +4,7 @@ import toasts from './toasts';
 import player from './player';
 import playlists from './playlists';
 import queue from './queue';
+import downloader from './downloader';
 
 const reducers = [
   app,
@@ -12,6 +13,7 @@ const reducers = [
   player,
   playlists,
   queue,
+  downloader,
 ];
 
 export default (state, action) => {
