@@ -160,7 +160,7 @@ const completeDownload = (index, artist, title, data) => {
   var downloadState = 'starting'
   var nextIndex = index + 1
 
-  LibraryActions.addFile(data.file)
+  LibraryActions.addFile(data.file.replace('\/', '\\'), artist, title)
 
   if (index == queue.length - 1) {
     downloadState = 'idle'

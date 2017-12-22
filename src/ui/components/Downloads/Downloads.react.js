@@ -42,6 +42,7 @@ export default class Downloads extends Component {
     this.state = {
       downloads,
       YD,
+      downloadState: this.props.downloadState,
     }
 
     this.getDownloads = this.getDownloads.bind(this)
@@ -51,8 +52,13 @@ export default class Downloads extends Component {
   componentWillReceiveProps(nextProps) {
     var downloads = [ ...nextProps.downloadQueue ]
 
-    if (nextProps.downloadState == 'starting') {
-      this.startYTDownloader(downloads[nextProps.downloadCursor], nextProps.downloadCursor)
+    if (nextProps.downloadState !== this.state.downloadState) {
+      if (nextProps.downloadState == 'starting') {
+        this.startYTDownloader(downloads[nextProps.downloadCursor], nextProps.downloadCursor)
+      }
+      this.setState({
+        downloadState: nextProps.downloadState
+      })
     }
     
     for (var i = 0; i < downloads.length; i++) {
@@ -74,7 +80,14 @@ export default class Downloads extends Component {
   }
 
   startYTDownloader(download, index) {
-    this.state.YD.download(download.id)
+    console.log(this.props.downloadCursor)
+    var title = download.title.replace(/[^a-z0-9 ]/gi, '')
+    title = title.replace(/\s/g, '_')
+    var artist = download.artist.replace(/[^a-z0-9 ]/gi, '')
+    artist = artist.replace(/\s/g, '_')
+    var filename = title + '_' + artist + '_' + download.id + '.mp3'
+
+    this.state.YD.download(download.id, filename)
 
     this.state.YD.on('finished', (err, data) => {
       AppActions.completeDownload(index, download.artist, download.title, data)

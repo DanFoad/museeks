@@ -110,11 +110,11 @@ const addFile = (filePath, artist='', title='') => {
     // else, insert the new document in the database
     await app.models.Track.insertAsync(track);
     
-    if (artist !== '' || title !== '') {
+    /*if (artist !== '' || title !== '') {
       track.artist[0] = artist
       track.title = title
-      AppActions.library.setMetadata(track)
-    }
+      await AppActions.library.setMetadata(track)
+    }*/
     AppActions.library.load();
   })
   
