@@ -100,6 +100,10 @@
       font-weight: bold;
       letter-spacing: 0.5px;
       padding: 0 8px;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     .add {
@@ -123,4 +127,53 @@
   width: 100%;
   background-color: #A1A4B1;
   border: 0;
+}
+
+.youtube-searcher h2 {
+  margin-bottom: 64px;
+}
+
+.youtube-results {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+
+  .youtube-result {
+    flex: 1;
+    margin: 0 16px;
+    border: 1px solid #E0E0E0;
+    padding: 4px;
+    background-color: #F0F0F0;
+    cursor: pointer;
+    transition: background-color 0.1s;
+
+    &:hover {
+      background-color: #E0E0E0;
+    }
+
+    .youtube-result-inner {
+      position: relative;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    h3 {
+      font-size: 1.1em;
+      text-align: center;
+    }
+    
+    span {
+      display: inline-block;
+      position: absolute;
+      right: 4px;
+      bottom: 4px;
+      padding: 2px 4px;
+      color: #FFFFFF;
+      background-color: rgba(0, 0, 0, 0.4);
+      font-size: 0.8em;
+    }
+  }
 }

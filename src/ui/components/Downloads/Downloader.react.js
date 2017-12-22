@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import YoutubeSearcher from './YoutubeSearch.react';
 import FullViewMessage from '../Shared/FullViewMessage.react';
 
 /*
@@ -21,6 +22,7 @@ export default class Downloader extends Component {
 
     this.state = {
       inputs: props.inputs,
+      stage: 'input',
     }
 
     this.handleManualSubmit = this.handleManualSubmit.bind(this)
@@ -28,7 +30,9 @@ export default class Downloader extends Component {
   }
 
   handleManualSubmit(event) {
-    event.preventDefault()
+    this.setState({
+      stage: 'searching',
+    })
   }
 
   handleInputChange(event) {
@@ -60,7 +64,7 @@ export default class Downloader extends Component {
       rows.push(
         <div className='input-row' data-key={i}>
           <input onChange={this.handleInputChange} data-header='title' type='text' placeholder='Title' value={this.state.inputs[i].title} />
-          <input onChange={this.handleInputChange} data-header='artist' type='text' placeholder='Value' value={this.state.inputs[i].artist} />
+          <input onChange={this.handleInputChange} data-header='artist' type='text' placeholder='Artist' value={this.state.inputs[i].artist} />
         </div>
       )
     }
@@ -70,18 +74,31 @@ export default class Downloader extends Component {
 
   getDownloaderComponent() {
 
-    // Main
-    return (
-      <div className='downloader-content'>
+    var manualInputs
+    if (this.state.stage == 'input') {
+      manualInputs = (
         <div className='downloader-manualinputs' ref={(container) => {this.inputsContainer = container}}>
-          <form onSubmit={this.handleManualSubmit}>
+          <form>
             {this.getInputRows()}
           </form>
           <div className='input-buttons'>
             <button onClick={this.addRow.bind(this)} className='add'><i className='fa fa-plus' /></button>
-            <input type='submit' value='Download' />
+            <input onClick={this.handleManualSubmit} type='submit' value='Download' />
           </div>
         </div>
+      )
+    } else if (this.state.stage == 'searching') {
+      manualInputs = (
+        <div className='downloader-manualinputs' ref={(container) => {this.inputsContainer = container}}>
+          <YoutubeSearcher inputs={this.state.inputs} />
+        </div>
+      )
+    }
+
+    // Main
+    return (
+      <div className='downloader-content'>
+        { manualInputs }
         <hr className='separator' />
         <div className='download-filereader'></div>
       </div>
